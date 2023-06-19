@@ -26,10 +26,11 @@ const TabHeader: FC<TabHeaderProps> = (props) => {
     <div
       onClick={handleTabClick}
       className={classNames(
-        "inline-flex items-center px-3 py-2.5 font-medium text-center mr-2 box-border rounded-lg cursor-pointer border-[1.5px] select-none group transition-all",
+        "inline-flex items-center px-3 py-2.5 font-medium text-center mr-2 box-border rounded-t-lg cursor-pointer select-none group transition-transform ",
         {
-          "text-gray-900 font-medium border-blue-600": props?.active,
-          "text-gray-600 border-gray-200": !props?.active,
+          "text-gray-900 font-medium bg-gray-200 border-b-2 border-blue-600":
+            props?.active,
+          "text-gray-600 border-gray-200 hover:bg-gray-100": !props?.active,
         }
       )}
     >
@@ -38,7 +39,7 @@ const TabHeader: FC<TabHeaderProps> = (props) => {
       <CrossIcon
         onClick={handleCloseClick}
         className={classNames(
-          "h-5 hover:bg-gray-100 rounded-sm transition-all w-0 group-hover:w-5",
+          "h-5 hover:bg-gray-300 rounded-sm transition-all w-0 group-hover:w-5",
           {
             "!w-5": props?.active,
           }

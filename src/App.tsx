@@ -1,21 +1,11 @@
 import "./App.css";
-import Tab from "./components/tab/tab";
+import Body from "./components/body/body";
+import Header from "./components/header/header";
 
 function App() {
-  const panes = [
-    {
-      title: "Home",
-      render: <div>Tab 3 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 3 Content</div>,
-    },
-  ];
-
   return (
-    <div className="App antialiased">
-      <Tab panes={panes} />
+    <div className="App">
+      <Body />
     </div>
   );
 }
