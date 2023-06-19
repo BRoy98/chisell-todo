@@ -1,11 +1,21 @@
-import React from "react";
 import "./App.css";
-import TabContainer from "./components/tab-container/tab-container";
+import Tab from "./components/tab/tab";
 
 function App() {
+  const panes = [
+    {
+      title: "Home",
+      render: <div>Tab 3 Content</div>,
+    },
+    {
+      title: "Office",
+      render: <div>Tab 3 Content</div>,
+    },
+  ];
+
   return (
-    <div className="App">
-      <TabContainer />
+    <div className="App antialiased">
+      <Tab panes={panes} />
     </div>
   );
 }
