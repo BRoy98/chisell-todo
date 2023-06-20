@@ -10,9 +10,11 @@ interface TabProps {
     count?: number;
     render: JSX.Element;
   }>;
+  tabEndComponent?: React.ReactNode;
 }
 
-const Tab: FC<TabProps> = ({ ...props }) => {
+const Tab: FC<TabProps> = (props) => {
+  const { tabEndComponent } = props;
   const [activeIndex, setActiveIndex] = useState(props?.activeIndex || 0);
 
   const handleItemClick = (index: number) => {
@@ -20,9 +22,13 @@ const Tab: FC<TabProps> = ({ ...props }) => {
     setActiveIndex(index);
   };
 
+  const renderItems = () => {
+    return _.get(props?.panes, `[${activeIndex}].render`);
+  };
+
   return (
     <>
-      <div>
+      <div className="flex items-center">
         {props?.panes?.map((item, index) => (
           <TabHeader
             key={index}
@@ -32,9 +38,10 @@ const Tab: FC<TabProps> = ({ ...props }) => {
             onTabClick={() => handleItemClick(index)}
           />
         ))}
-        <div className="border-b-[1.5px] border-gray-200 -mt-[1.5px]"></div>
+        {tabEndComponent}
       </div>
-      <div></div>
+      <div className="border-b-2 border-gray-200 -mt-[2px]"></div>
+      <div children={renderItems()} />
     </>
   );
 };

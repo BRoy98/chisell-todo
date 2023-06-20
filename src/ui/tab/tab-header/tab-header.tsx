@@ -23,14 +23,16 @@ const TabHeader: FC<TabHeaderProps> = (props) => {
   };
 
   return (
-    <div
+    <button
       onClick={handleTabClick}
       className={classNames(
-        "inline-flex items-center px-3 py-2.5 font-medium text-center mr-2 box-border rounded-t-lg cursor-pointer select-none group transition-transform ",
+        "focus:outline-none",
+        "inline-flex items-center px-3 py-2.5 text-center mr-2 box-border rounded-t-lg cursor-pointer select-none group transition-transform border-b-2",
         {
-          "text-gray-900 font-medium bg-gray-200 border-b-2 border-blue-600":
+          "text-gray-900 font-medium bg-violet-100 border-blue-700":
             props?.active,
-          "text-gray-600 border-gray-200 hover:bg-gray-100": !props?.active,
+          "text-gray-600 border-t border-x border-gray-100 border-b-gray-200 hover:bg-violet-50":
+            !props?.active,
         }
       )}
     >
@@ -45,7 +47,7 @@ const TabHeader: FC<TabHeaderProps> = (props) => {
           }
         )}
       />
-    </div>
+    </button>
   );
 };
 
