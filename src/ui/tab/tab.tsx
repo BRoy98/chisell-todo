@@ -28,20 +28,24 @@ const Tab: FC<TabProps> = (props) => {
 
   return (
     <>
-      <div className="flex items-center">
+      <div className="flex items-stretch overflow-x-auto no-scrollbar">
         {props?.panes?.map((item, index) => (
           <TabHeader
             key={index}
             title={item.title}
             count={item.count}
             active={activeIndex === index}
+            nextActive={activeIndex === index + 1}
             onTabClick={() => handleItemClick(index)}
           />
         ))}
         {tabEndComponent}
       </div>
-      <div className="border-b-2 border-gray-200 -mt-[2px]"></div>
-      <div children={renderItems()} />
+      <div className="border-b-2 border-violet-50 -mt-[2px]"></div>
+      <div
+        className="relative my-4 z-[1] bg-gradient-to-b from-violet-50 rounded-lg"
+        children={renderItems()}
+      />
     </>
   );
 };
