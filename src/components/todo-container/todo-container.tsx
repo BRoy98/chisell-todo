@@ -25,13 +25,14 @@ const TodoContainer = () => {
       </SplitSection>
       <SplitSection className="">
         <input
-          className="w-full focus:outline-none bg-slate-50 p-2 rounded-lg font-bold border-2 border-violet-100"
+          className="bg-gray-50 border w-full p-2.5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-violet-200 focus:border-violet-500 block focus:outline-none focus:ring-4"
           placeholder="Add task..."
         />
-        <textarea
-          className="w-full mt-2 focus:outline-none bg-slate-50 p-2 rounded-lg border-2 border-violet-100"
+        <div className="text-xs text-gray-400 mt-1">Click enter to add task</div>
+        {/* <textarea
+          className="mt-2 bg-gray-50 border w-full p-2.5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-violet-200 focus:border-violet-500 block focus:outline-none focus:ring-4"
           placeholder="Description"
-        />
+        /> */}
       </SplitSection>
       <SplitSection>
         <SplitSectionHeader className="bg-white rounded-lg border border-gray-200">

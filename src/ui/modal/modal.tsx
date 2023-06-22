@@ -1,27 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Backdrop from "../backdrop/backdrop";
 import { FC } from "react";
-
-const dropIn = {
-  hidden: {
-    y: "-100vh",
-    opacity: 0,
-  },
-  visible: {
-    y: "0",
-    opacity: 1,
-    transition: {
-      duration: 0.1,
-      type: "spring",
-      damping: 25,
-      stiffness: 500,
-    },
-  },
-  exit: {
-    y: "100vh",
-    opacity: 0,
-  },
-};
+import classNames from "classnames";
 
 interface ModalProps {
   handleClose: () => void;
@@ -36,7 +16,10 @@ const Modal: FC<ModalProps> = ({ handleClose, children, modalOpen }) => {
         <Backdrop onClick={handleClose}>
           <motion.div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white shadow-lg shadow-gray-400 rounded-lg w-auto m-auto"
+            className={classNames(
+              "bg-white shadow-lg shadow-gray-400 rounded-lg w-auto m-auto",
+              "w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-[calc(100%-1rem)] max-w-[calc(100%-1rem)]"
+            )}
             initial="hidden"
             animate="visible"
             exit="exit"
