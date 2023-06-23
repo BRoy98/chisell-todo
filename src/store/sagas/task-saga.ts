@@ -18,6 +18,9 @@ export function* fetchTasks(action: any) {
 
 export function* createTask(action: any) {
   try {
+    console.log('====================================');
+    console.log("createTask", action);
+    console.log('====================================');
     yield tasksDB.createTask(action.payload.name, action.payload.boardId);
     let { tasks } = yield tasksDB.fetchTasks(action.payload.boardId);
     yield put(

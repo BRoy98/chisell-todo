@@ -36,6 +36,16 @@ export const dbInstance = async () => {
       tasks.createIndex("id", "number");
       tasks.createIndex("boardId", "number");
     },
+    blocked(currentVersion, blockedVersion, event) {
+      console.log("====================================");
+      console.log("DB BLocker", currentVersion, blockedVersion);
+      console.log("====================================");
+    },
+    blocking(currentVersion, blockedVersion, event) {
+      console.log("====================================");
+      console.log("DB BLocking", currentVersion, blockedVersion);
+      console.log("====================================");
+    },
   });
 };
 
