@@ -54,7 +54,13 @@ const Body = () => {
           }
         />
       )}
-      <Modal modalOpen={openModel} handleClose={() => setOpenModal(false)}>
+      <Modal
+        modalOpen={openModel}
+        handleClose={() => {
+          setOpenModal(false);
+          setNewBoardName("");
+        }}
+      >
         <div className="p-1 md:min-w-[400px]">
           <h3 className="font-bold">Add Board</h3>
           <input
@@ -65,21 +71,28 @@ const Body = () => {
             placeholder="My First Board"
             required
           />
-          <Button
-            className="mt-2 ml-auto"
-            onClick={() => {
-              dispatch({
-                type: SagaActions.CREATE_BOARD,
-                payload: {
-                  boardName: newBoardName,
-                },
-              });
-              setOpenModal(false);
-              setNewBoardName("");
-            }}
-          >
-            Create
-          </Button>
+          <div className="mt-2 ml-auto flex justify-end gap-2">
+            <Button
+              onClick={() => setOpenModal(false)}
+              variant={ButtonVariant.LIGHT}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                dispatch({
+                  type: SagaActions.CREATE_BOARD,
+                  payload: {
+                    boardName: newBoardName,
+                  },
+                });
+                setOpenModal(false);
+                setNewBoardName("");
+              }}
+            >
+              Create
+            </Button>
+          </div>
         </div>
       </Modal>
     </div>

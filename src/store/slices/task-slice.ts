@@ -21,7 +21,10 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     setTasks: (state, action) => {
-      state.tasks[action.payload.boardId] = action.payload.tasks;
+      state.tasks = {
+        ...state.tasks,
+        [action.payload.boardId]: action.payload.tasks,
+      };
     },
   },
 });

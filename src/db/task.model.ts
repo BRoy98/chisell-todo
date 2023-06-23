@@ -9,7 +9,7 @@ const createTask = async (name: string, boardId: number) => {
 const fetchTasks = async (boardId: number) => {
   const db = await dbInstance();
   const tasks = await db.getAll("tasks");
-  return { tasks };
+  return { tasks: tasks.filter((task: any) => task.boardId === boardId) };
 };
 
 const completeTask = async (taskId: number) => {

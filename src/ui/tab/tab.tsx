@@ -53,6 +53,7 @@ const Tab: FC<TabProps> = (props) => {
       </div>
       <div className="border-b-2 border-violet-50 -mt-[2px]"></div>
       <div
+        key={activeIndex}
         className="relative my-4 z-[1] bg-gradient-to-b from-violet-50 rounded-lg"
         children={renderItems()}
       />

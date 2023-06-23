@@ -7,7 +7,14 @@ import tasksDB from "../../db/task.model";
 export function* fetchTasks(action: any) {
   try {
     let { tasks } = yield tasksDB.fetchTasks(action.payload.boardId);
-    yield put(setTasks({ boardId: action.payload.boardId, tasks }));
+    yield put(
+      setTasks({
+        boardId: action.payload.boardId,
+        tasks: tasks.filter(
+          (task: any) => task.boardId === action.payload.boardId
+        ),
+      })
+    );
   } catch (e) {
     yield put({ type: SagaActions.FETCH_BOARDS_FAILED });
   }
@@ -17,7 +24,12 @@ export function* createTask(action: any) {
   try {
     yield tasksDB.createTask(action.payload.name, action.payload.boardId);
     let { tasks } = yield tasksDB.fetchTasks(action.payload.boardId);
-    yield put(setTasks({ boardId: action.payload.boardId, tasks }));
+    yield put(
+      setTasks({
+        boardId: action.payload.boardId,
+        tasks,
+      })
+    );
   } catch (e) {}
 }
 
