@@ -5,6 +5,7 @@ export type TaskState = {
     [boardId: string]: Array<{
       id: number;
       name: string;
+      state: "PENDING" | "COMPLETE";
     }>;
   };
   status: "pending" | "loading" | "idle";

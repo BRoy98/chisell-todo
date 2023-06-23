@@ -53,9 +53,11 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
           </div>
         )}
         <div className=" mt-2 flex flex-col gap-2">
-          {tasks[props?.boardId]?.map((task, index) => (
-            <TodoCard key={index} {...task} boardId={props?.boardId} />
-          ))}
+          {tasks[props?.boardId]
+            ?.filter((task) => task.state === "PENDING")
+            .map((task, index) => (
+              <TodoCard key={index} {...task} boardId={props?.boardId} />
+            ))}
         </div>
       </SplitSection>
       <SplitSection className="p-3 bg-white">
@@ -76,6 +78,13 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
           <span className="h-3 w-3 rounded-sm bg-green-600 mr-2 max-sm:hidden"></span>
           <span className="text-green-500 font-medium">Completed Tasks</span>
         </SplitSectionHeader>
+        <div className=" mt-2 flex flex-col gap-2">
+          {tasks[props?.boardId]
+            ?.filter((task) => task.state === "COMPLETE")
+            .map((task, index) => (
+              <TodoCard key={index} {...task} boardId={props?.boardId} />
+            ))}
+        </div>
       </SplitSection>
     </div>
   );

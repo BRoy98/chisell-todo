@@ -18,9 +18,7 @@ export function* createTask(action: any) {
     yield tasksDB.createTask(action.payload.name, action.payload.boardId);
     let { tasks } = yield tasksDB.fetchTasks(action.payload.boardId);
     yield put(setTasks({ boardId: action.payload.boardId, tasks }));
-  } catch (e) {
-    yield put({ type: SagaActions.FETCH_BOARDS_FAILED });
-  }
+  } catch (e) {}
 }
 
 export function* deleteTask(action: any) {
@@ -28,9 +26,15 @@ export function* deleteTask(action: any) {
     yield tasksDB.deleteTask(action.payload.taskId);
     let { tasks } = yield tasksDB.fetchTasks(action.payload.boardId);
     yield put(setTasks({ boardId: action.payload.boardId, tasks }));
-  } catch (e) {
-    yield put({ type: SagaActions.FETCH_BOARDS_FAILED });
-  }
+  } catch (e) {}
+}
+
+export function* completeTask(action: any) {
+  try {
+    yield tasksDB.completeTask(action.payload.taskId);
+    let { tasks } = yield tasksDB.fetchTasks(action.payload.boardId);
+    yield put(setTasks({ boardId: action.payload.boardId, tasks }));
+  } catch (e) {}
 }
 
 export function* fetchTasksSaga() {
@@ -43,4 +47,8 @@ export function* createTasksSaga() {
 
 export function* deleteTasksSaga() {
   yield takeEvery(SagaActions.DELETE_TASK, deleteTask);
+}
+
+export function* completeTasksSaga() {
+  yield takeEvery(SagaActions.COMPLETE_TASK, completeTask);
 }
