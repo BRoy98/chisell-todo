@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
 import TabHeader from "./tab-header/tab-header";
@@ -23,6 +23,7 @@ interface TabProps {
 const Tab: FC<TabProps> = (props) => {
   const { tabEndComponent } = props;
   const dispatch = useDispatch();
+  const [panes, setPanes] = useState<Array<PaneData>>(props?.panes);
   const [deleteItem, setDeleteItem] = useState<PaneData | null>(null);
   const [activeIndex, setActiveIndex] = useState(props?.activeIndex || 0);
 
@@ -45,6 +46,13 @@ const Tab: FC<TabProps> = (props) => {
   const renderItems = () => {
     return _.get(props?.panes, `[${activeIndex}].render`);
   };
+
+  useEffect(() => {
+    if (props?.panes?.length > panes.length) {
+      setActiveIndex(props?.panes?.length - 1);
+    }
+    setPanes(props?.panes);
+  }, [props?.panes, setActiveIndex, setPanes, panes]);
 
   return (
     <>
