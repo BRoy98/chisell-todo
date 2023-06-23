@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
 import TabHeader from "./tab-header/tab-header";
-import { sagaActions } from "../../store/saga-actions";
+import { SagaActions } from "../../store/saga-actions";
 import Modal from "../modal/modal";
 import Button, { ButtonVariant } from "../button/button";
 
@@ -70,7 +70,7 @@ const Tab: FC<TabProps> = (props) => {
             <Button
               onClick={() => {
                 dispatch({
-                  type: sagaActions.DELETE_BOARD,
+                  type: SagaActions.DELETE_BOARD,
                   payload: {
                     boardId: deleteItem?.id,
                   },

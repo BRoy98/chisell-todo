@@ -9,7 +9,7 @@ import Header from "../header/header";
 import styles from "./body.module.scss";
 import TodoContainer from "../todo-container/todo-container";
 import Modal from "../../ui/modal/modal";
-import { sagaActions } from "../../store/saga-actions";
+import { SagaActions } from "../../store/saga-actions";
 import { RootState } from "../../store";
 
 const Body = () => {
@@ -19,7 +19,7 @@ const Body = () => {
   const boards = useSelector((state: RootState) => state.board.boards);
 
   useEffect(() => {
-    dispatch({ type: sagaActions.FETCH_BOARDS });
+    dispatch({ type: SagaActions.FETCH_BOARDS });
   }, []);
 
   return (
@@ -29,7 +29,7 @@ const Body = () => {
         panes={boards.map((board) => ({
           id: board.id,
           title: board.name,
-          render: <TodoContainer />,
+          render: <TodoContainer boardId={board.id} />,
         }))}
         tabEndComponent={
           <div
@@ -64,7 +64,7 @@ const Body = () => {
             className="mt-2 ml-auto"
             onClick={() => {
               dispatch({
-                type: sagaActions.CREATE_BOARD,
+                type: SagaActions.CREATE_BOARD,
                 payload: {
                   boardName: newBoardName,
                 },

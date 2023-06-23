@@ -13,7 +13,7 @@ const initialState: BoardState = {
   status: "pending",
 };
 
-export const counterSlice = createSlice({
+export const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
@@ -23,5 +23,5 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { setBoards } = counterSlice.actions;
-export default counterSlice.reducer;
+export const { setBoards } = boardSlice.actions;
+export default boardSlice.reducer;

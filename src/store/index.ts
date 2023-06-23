@@ -1,8 +1,18 @@
 import createSagaMiddleware from "redux-saga";
 import { configureStore } from "@reduxjs/toolkit";
 
-import { fetchBoardsSaga, createBoardsSaga, deleteBoardsSaga } from "./saga";
-import boardReducer from "./board-slice";
+import {
+  fetchBoardsSaga,
+  createBoardsSaga,
+  deleteBoardsSaga,
+} from "./sagas/board-saga";
+import boardReducer from "./slices/board-slice";
+import taskReducer from "./slices/task-slice";
+import {
+  createTasksSaga,
+  deleteTasksSaga,
+  fetchTasksSaga,
+} from "./sagas/task-saga";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
@@ -10,6 +20,7 @@ const middleware = [sagaMiddleware];
 export const store = configureStore({
   reducer: {
     board: boardReducer,
+    task: taskReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middleware),
@@ -19,7 +30,9 @@ sagaMiddleware.run(fetchBoardsSaga);
 sagaMiddleware.run(createBoardsSaga);
 sagaMiddleware.run(deleteBoardsSaga);
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
+sagaMiddleware.run(fetchTasksSaga);
+sagaMiddleware.run(createTasksSaga);
+sagaMiddleware.run(deleteTasksSaga);
+
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
