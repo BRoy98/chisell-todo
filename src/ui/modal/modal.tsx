@@ -18,7 +18,7 @@ const Modal: FC<ModalProps> = ({ handleClose, children, modalOpen }) => {
             onClick={(e) => e.stopPropagation()}
             className={classNames(
               "bg-white shadow-lg shadow-gray-400 rounded-lg w-auto m-auto",
-              "w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-[calc(100%-1rem)] max-w-[calc(100%-1rem)]"
+              "p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-[calc(100%-1rem)] max-w-[calc(100%-1rem)]"
             )}
             initial="hidden"
             animate="visible"
