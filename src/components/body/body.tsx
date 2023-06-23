@@ -11,6 +11,7 @@ import TodoContainer from "../todo-container/todo-container";
 import Modal from "../../ui/modal/modal";
 import { SagaActions } from "../../store/saga-actions";
 import { RootState } from "../../store";
+import NoBoard from "./no-board";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -25,30 +26,34 @@ const Body = () => {
   return (
     <div className="container m-auto">
       <Header />
-      <Tab
-        panes={boards.map((board) => ({
-          id: board.id,
-          title: board.name,
-          render: <TodoContainer boardId={board.id} />,
-        }))}
-        tabEndComponent={
-          <div
-            className={classNames(
-              "sticky right-0 flex justify-center z-[3] mb-[2px]",
-              styles.buttonWrapper
-            )}
-          >
-            <Button
-              variant={ButtonVariant.LIGHT}
-              onClick={() => {
-                setOpenModal(true);
-              }}
-              className="m-2"
-              startIcon={<AddIcon className="h-5 w-5" />}
-            ></Button>
-          </div>
-        }
-      />
+      {boards?.length === 0 ? (
+        <NoBoard openModel={() => setOpenModal(true)} />
+      ) : (
+        <Tab
+          panes={boards.map((board) => ({
+            id: board.id,
+            title: board.name,
+            render: <TodoContainer boardId={board.id} />,
+          }))}
+          tabEndComponent={
+            <div
+              className={classNames(
+                "sticky right-0 flex justify-center z-[3] mb-[2px]",
+                styles.buttonWrapper
+              )}
+            >
+              <Button
+                variant={ButtonVariant.LIGHT}
+                onClick={() => {
+                  setOpenModal(true);
+                }}
+                className="m-2"
+                startIcon={<AddIcon className="h-5 w-5" />}
+              ></Button>
+            </div>
+          }
+        />
+      )}
       <Modal modalOpen={openModel} handleClose={() => setOpenModal(false)}>
         <div className="p-1 md:min-w-[400px]">
           <h3 className="font-bold">Add Board</h3>

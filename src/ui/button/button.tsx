@@ -25,9 +25,9 @@ const Button: FC<ButtonProps> = (props) => {
     <button
       onClick={props?.onClick}
       className={classNames(
-        props?.className,
         "focus:outline-none rounded-lg px-3 py-2 items-center flex transition-colors text-center",
-        variantStyles[props?.variant || ButtonVariant.DEFAULT]
+        variantStyles[props?.variant || ButtonVariant.DEFAULT],
+        props?.className
       )}
     >
       {props?.startIcon}
