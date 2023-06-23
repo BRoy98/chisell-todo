@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Backdrop from "../backdrop/backdrop";
 import { FC } from "react";
 import classNames from "classnames";
+import { useEscapeKey } from "../../hooks/use-escape-key";
 
 interface ModalProps {
   handleClose: () => void;
@@ -10,6 +11,8 @@ interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({ handleClose, children, modalOpen }) => {
+  useEscapeKey(handleClose);
+
   return (
     <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
       {modalOpen && (

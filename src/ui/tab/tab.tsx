@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import TabHeader from "./tab-header/tab-header";
 import { sagaActions } from "../../store/saga-actions";
 import Modal from "../modal/modal";
-import Button from "../button/button";
+import Button, { ButtonVariant } from "../button/button";
 
 type PaneData = {
   id: number;
@@ -60,20 +60,27 @@ const Tab: FC<TabProps> = (props) => {
         <div className="p-1 md:min-w-[400px]">
           <h3 className="font-bold">Delete Board</h3>
           <div className="my-4">{`Do you want to delete the "${deleteItem?.title}" board and all it's tasks?`}</div>
-          <Button
-            className="mt-2 ml-auto"
-            onClick={() => {
-              dispatch({
-                type: sagaActions.DELETE_BOARD,
-                payload: {
-                  boardId: deleteItem?.id,
-                },
-              });
-              setDeleteItem(null);
-            }}
-          >
-            Delete
-          </Button>
+          <div className="mt-2 ml-auto flex justify-end gap-2">
+            <Button
+              onClick={() => setDeleteItem(null)}
+              variant={ButtonVariant.LIGHT}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                dispatch({
+                  type: sagaActions.DELETE_BOARD,
+                  payload: {
+                    boardId: deleteItem?.id,
+                  },
+                });
+                setDeleteItem(null);
+              }}
+            >
+              Delete
+            </Button>
+          </div>
         </div>
       </Modal>
     </>
