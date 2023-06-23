@@ -1,10 +1,11 @@
-import { SplitSection, SplitSectionHeader } from "./split-section";
-import goal from "../../assets/goal.png";
 import { useDispatch, useSelector } from "react-redux";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { RootState } from "../../store";
-import { FC, useCallback, useEffect, useState } from "react";
-import { SagaActions } from "../../store/saga-actions";
+import goal from "../../assets/goal.png";
+import target from "../../assets/target.png";
 import TodoCard from "../todo-card/todo-card";
+import { SagaActions } from "../../store/saga-actions";
+import { SplitSection, SplitSectionHeader } from "./split-section";
 
 interface TodoContainerProps {
   boardId: number;
@@ -12,8 +13,20 @@ interface TodoContainerProps {
 
 const TodoContainer: FC<TodoContainerProps> = (props) => {
   const dispatch = useDispatch();
-  const tasks = useSelector((state: RootState) => state.task.tasks);
   const [newTask, setNewTask] = useState("");
+  const tasks = useSelector((state: RootState) => state.task.tasks);
+
+  const pendingTasks = useMemo(
+    () =>
+      tasks[props?.boardId]?.filter((task) => task.state === "PENDING") || [],
+    [tasks, props]
+  );
+
+  const completedTasks = useMemo(
+    () =>
+      tasks[props?.boardId]?.filter((task) => task.state === "COMPLETE") || [],
+    [tasks, props]
+  );
 
   const addTask = useCallback(
     (e: any) => {
@@ -44,7 +57,7 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
           <span className="h-3 w-3 rounded-full bg-gray-700 mr-2 max-sm:hidden"></span>
           <span className="text-gray-700 font-medium">New Tasks</span>
         </SplitSectionHeader>
-        {!tasks[props?.boardId]?.length && (
+        {!pendingTasks?.length && (
           <div className="p-2 flex flex-col items-center my-6">
             <img src={goal} className="w-12" alt="todo" />
             <span className="mt-4 text-gray-500">
@@ -53,11 +66,9 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
           </div>
         )}
         <div className=" mt-2 flex flex-col gap-2">
-          {tasks[props?.boardId]
-            ?.filter((task) => task.state === "PENDING")
-            .map((task, index) => (
-              <TodoCard key={index} {...task} boardId={props?.boardId} />
-            ))}
+          {pendingTasks.map((task, index) => (
+            <TodoCard key={index} {...task} boardId={props?.boardId} />
+          ))}
         </div>
       </SplitSection>
       <SplitSection className="p-3 bg-white">
@@ -78,12 +89,16 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
           <span className="h-3 w-3 rounded-sm bg-green-600 mr-2 max-sm:hidden"></span>
           <span className="text-green-500 font-medium">Completed Tasks</span>
         </SplitSectionHeader>
+        {!completedTasks?.length && (
+          <div className="p-2 flex flex-col items-center my-6">
+            <img src={target} className="w-12" alt="todo" />
+            <span className="mt-4 text-gray-500">No completed tasks here.</span>
+          </div>
+        )}
         <div className=" mt-2 flex flex-col gap-2">
-          {tasks[props?.boardId]
-            ?.filter((task) => task.state === "COMPLETE")
-            .map((task, index) => (
-              <TodoCard key={index} {...task} boardId={props?.boardId} />
-            ))}
+          {completedTasks.map((task, index) => (
+            <TodoCard key={index} {...task} boardId={props?.boardId} />
+          ))}
         </div>
       </SplitSection>
     </div>

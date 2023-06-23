@@ -34,14 +34,14 @@ const TodoCard: FC<TodoCardProps> = (props) => {
       <div className="flex gap-2">
         {props?.state === "PENDING" && (
           <div
-            className="cursor-pointer p-1 hover:bg-slate-100 transition-colors rounded-full"
+            className="cursor-pointer p-1 hover:bg-slate-100 transition-colors rounded-full h-fit"
             onClick={completeTask}
           >
             <CheckIcon className="h-5  text-green-500" />
           </div>
         )}
         <div
-          className="cursor-pointer p-1 hover:bg-slate-100 transition-colors rounded-full"
+          className="cursor-pointer p-1 hover:bg-slate-100 transition-colors rounded-full h-fit"
           onClick={deleteTask}
         >
           <DeleteIcon className="h-5 text-red-500" />
