@@ -28,7 +28,7 @@ interface SplitSectionProps {
 const SplitSection: FC<SplitSectionProps> = ({ children, className }) => (
   <div
     className={classNames(
-      "flex-1 flex flex-col p-1 m-1 text-gray-700",
+      "flex-1 flex flex-col p-1 text-gray-700",
       className
     )}
   >

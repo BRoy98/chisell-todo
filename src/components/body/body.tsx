@@ -1,64 +1,36 @@
+import { useEffect, useState } from "react";
+import classNames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+
 import Tab from "../../ui/tab/tab";
-import Header from "../header/header";
 import Button, { ButtonVariant } from "../../ui/button/button";
 import { ReactComponent as AddIcon } from "../../assets/add.svg";
+import Header from "../header/header";
 import styles from "./body.module.scss";
-import classNames from "classnames";
 import TodoContainer from "../todo-container/todo-container";
 import Modal from "../../ui/modal/modal";
-import { useState } from "react";
+import { sagaActions } from "../../store/saga-actions";
+import { RootState } from "../../store";
 
 const Body = () => {
-  const panes = [
-    {
-      title: "Home",
-      render: <TodoContainer />,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-    {
-      title: "Office",
-      render: <div>Tab 2 Content</div>,
-    },
-  ];
-
+  const dispatch = useDispatch();
   const [openModel, setOpenModal] = useState(false);
+  const [newBoardName, setNewBoardName] = useState("");
+  const boards = useSelector((state: RootState) => state.board.boards);
+
+  useEffect(() => {
+    dispatch({ type: sagaActions.FETCH_BOARDS });
+  }, []);
 
   return (
     <div className="container m-auto">
       <Header />
       <Tab
-        panes={panes}
+        panes={boards.map((board) => ({
+          id: board.id,
+          title: board.name,
+          render: <TodoContainer />,
+        }))}
         tabEndComponent={
           <div
             className={classNames(
@@ -81,13 +53,27 @@ const Body = () => {
         <div className="p-1 md:min-w-[400px]">
           <h3 className="font-bold">Add Board</h3>
           <input
+            onChange={(e) => setNewBoardName(e.target.value)}
             type="text"
-            id="board_name"
-            className="mt-2 bg-gray-50 border w-full p-2.5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-violet-200 focus:border-violet-500 block focus:outline-none focus:ring-4"
+            value={newBoardName}
+            className="my-4 bg-gray-50 border w-full p-2.5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-violet-200 focus:border-violet-500 block focus:outline-none focus:ring-4"
             placeholder="My First Board"
             required
           />
-          <Button className="mt-2 ml-auto">Create</Button>
+          <Button
+            className="mt-2 ml-auto"
+            onClick={() => {
+              dispatch({
+                type: sagaActions.CREATE_BOARD,
+                payload: {
+                  boardName: newBoardName,
+                },
+              });
+              setOpenModal(false);
+            }}
+          >
+            Create
+          </Button>
         </div>
       </Modal>
     </div>
