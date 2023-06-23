@@ -10,14 +10,10 @@ export function* fetchTasks(action: any) {
     yield put(
       setTasks({
         boardId: action.payload.boardId,
-        tasks: tasks.filter(
-          (task: any) => task.boardId === action.payload.boardId
-        ),
+        tasks,
       })
     );
-  } catch (e) {
-    yield put({ type: SagaActions.FETCH_BOARDS_FAILED });
-  }
+  } catch (e) {}
 }
 
 export function* createTask(action: any) {

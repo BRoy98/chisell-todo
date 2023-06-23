@@ -8,9 +8,7 @@ export function* fetchBoards() {
   try {
     let { boards } = yield boardsDB.fetchBoards();
     yield put(setBoards(boards));
-  } catch (e) {
-    yield put({ type: SagaActions.FETCH_BOARDS_FAILED });
-  }
+  } catch (e) {}
 }
 
 export function* createBoard(action: any) {
@@ -18,9 +16,7 @@ export function* createBoard(action: any) {
     yield boardsDB.createBoard(action.payload.boardName);
     let { boards } = yield boardsDB.fetchBoards();
     yield put(setBoards(boards));
-  } catch (e) {
-    yield put({ type: SagaActions.FETCH_BOARDS_FAILED });
-  }
+  } catch (e) {}
 }
 
 export function* deleteBoard(action: any) {
@@ -28,9 +24,7 @@ export function* deleteBoard(action: any) {
     yield boardsDB.deleteBoard(action.payload.boardId);
     let { boards } = yield boardsDB.fetchBoards();
     yield put(setBoards(boards));
-  } catch (e) {
-    yield put({ type: SagaActions.FETCH_BOARDS_FAILED });
-  }
+  } catch (e) {}
 }
 
 export function* fetchBoardsSaga() {

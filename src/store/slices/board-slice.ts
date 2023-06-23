@@ -5,12 +5,10 @@ export type BoardState = {
     id: number;
     name: string;
   }>;
-  status: "pending" | "loading" | "idle";
 };
 
 const initialState: BoardState = {
   boards: [],
-  status: "pending",
 };
 
 export const boardSlice = createSlice({

@@ -31,6 +31,17 @@ const Tab: FC<TabProps> = (props) => {
     setActiveIndex(index);
   };
 
+  const handleDeleteItem = () => {
+    dispatch({
+      type: SagaActions.DELETE_BOARD,
+      payload: {
+        boardId: deleteItem?.id,
+      },
+    });
+    setDeleteItem(null);
+    if (activeIndex - 1 > -1) setActiveIndex(activeIndex - 1);
+  };
+
   const renderItems = () => {
     return _.get(props?.panes, `[${activeIndex}].render`);
   };
@@ -68,19 +79,7 @@ const Tab: FC<TabProps> = (props) => {
             >
               Cancel
             </Button>
-            <Button
-              onClick={() => {
-                dispatch({
-                  type: SagaActions.DELETE_BOARD,
-                  payload: {
-                    boardId: deleteItem?.id,
-                  },
-                });
-                setDeleteItem(null);
-              }}
-            >
-              Delete
-            </Button>
+            <Button onClick={handleDeleteItem}>Delete</Button>
           </div>
         </div>
       </Modal>

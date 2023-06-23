@@ -8,12 +8,10 @@ export type TaskState = {
       state: "PENDING" | "COMPLETE";
     }>;
   };
-  status: "pending" | "loading" | "idle";
 };
 
 const initialState: TaskState = {
   tasks: {},
-  status: "pending",
 };
 
 export const counterSlice = createSlice({
