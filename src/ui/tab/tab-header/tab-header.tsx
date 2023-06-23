@@ -40,7 +40,7 @@ const TabHeader: FC<TabHeaderProps> = (props) => {
     >
       <div className="mx-3 my-2.5 inline-flex items-center">
         <TabCount active={props?.active} count={props?.count} />
-        <span className="px-3">{props?.title}</span>
+        <span className="px-3 whitespace-nowrap">{props?.title}</span>
         <CrossIcon
           onClick={handleCloseClick}
           className={classNames(
