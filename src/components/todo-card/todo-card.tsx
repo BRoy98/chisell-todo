@@ -8,6 +8,7 @@ interface TodoCardProps {
   id: number;
   name: string;
   boardId: number;
+  state: "PENDING" | "COMPLETE";
 }
 
 const TodoCard: FC<TodoCardProps> = (props) => {
@@ -31,12 +32,14 @@ const TodoCard: FC<TodoCardProps> = (props) => {
     <div className="bg-white rounded-lg border border-gray-200 p-2 flex justify-between">
       <div>{props.name}</div>
       <div className="flex gap-2">
-        <div
-          className="cursor-pointer p-1 hover:bg-slate-100 transition-colors rounded-full"
-          onClick={completeTask}
-        >
-          <CheckIcon className="h-5  text-green-500" />
-        </div>
+        {props?.state === "PENDING" && (
+          <div
+            className="cursor-pointer p-1 hover:bg-slate-100 transition-colors rounded-full"
+            onClick={completeTask}
+          >
+            <CheckIcon className="h-5  text-green-500" />
+          </div>
+        )}
         <div
           className="cursor-pointer p-1 hover:bg-slate-100 transition-colors rounded-full"
           onClick={deleteTask}
