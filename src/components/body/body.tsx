@@ -75,6 +75,7 @@ const Body = () => {
                 },
               });
               setOpenModal(false);
+              setNewBoardName("");
             }}
           >
             Create
